@@ -19,3 +19,4 @@ class CustomUser(AbstractUser):
         related_name='custom_user_permissions',
         blank=True,
     )
+
