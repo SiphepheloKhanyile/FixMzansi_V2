@@ -1,7 +1,10 @@
 .venv/
 .env
 db.sqlite3
-./Api/__pycache__/
-./Auth/__pycache__/
-./issues/__pycache__/
-./users/__pycache__/
+Api/__pycache__/
+Auth/__pycache__/
+Auth/migrations/*
+issues/__pycache__/
+issues/migrations/*
+users/__pycache__/
+users/migrations/*
