@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "users",
     "Auth",
     "issues",
+    "PublicAlerts",
     "rest_framework",
     "rest_framework.authtoken",
 ]

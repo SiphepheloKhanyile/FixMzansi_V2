@@ -8,3 +8,8 @@ issues/__pycache__/
 issues/migrations/*
 users/__pycache__/
 users/migrations/*
+public_alerts/__pycache__/
+public_alerts/migrations/*
+media/issue_media/*
+media/profile_pictures/*
+
