@@ -67,3 +67,8 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* 
+boxShadow: "0 0 10px rgba(0, 0, 0, 1)", border: "1px solid #E5E7EB"
+className="bg-slate-100 shadow-md stroke-slate-100 border-e"
+*/
