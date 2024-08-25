@@ -29,20 +29,20 @@ export default function RootLayout({
         )}
       >
         <div style={{ display: "flex", minHeight: "100vh" }}>
-
-          <div 
-            style={{ flex: "3%", height: "100vh"}} 
-            className="bg-slate-100 border border-slate-200 shadow-inner  shadow-slate-300 rounded-tr-[10px] rounded-br-[10px]"
+          <div
+            style={{ flex: "5%" }}
+            className="bg-slate-100 border border-slate-200 shadow-inner
+                      shadow-slate-300 rounded-tr-lg rounded-br-lg h-screen"
           >
             <SideNav />
           </div>
 
-          <div style={{ flex: "97%" }} className="bg-orange-20">
+          <div style={{ flex: "95%" }} className="bg-orange-20 h-screen">
             {children}
           </div>
-
         </div>
       </body>
     </html>
   );
 }
+
