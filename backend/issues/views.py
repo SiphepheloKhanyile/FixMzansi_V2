@@ -9,20 +9,37 @@ from rest_framework.request import Request
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication, SessionAuthentication
 
+from django.db.models import Q
 
 class IssuesListUnsecuredAPIView(APIView):
     """
     All Issues APIView
     URL: GET /issues/
     """
-
     def get(self, request: Request, pk=None):
+        state_name = request.query_params.get('state')
+        category = request.query_params.get('category')
+        status = request.query_params.get('status')
+        
         if pk:
             issue = Issue.objects.get(pk=pk)
             serializer = IssueSerializer(issue)
             return Response(serializer.data)
         
-        issues = Issue.objects.all()
+        query = Q()
+        
+        if state_name:
+            query |= Q(state_name=state_name)
+        if category:
+            query |= Q(category=category.upper())
+        if status:
+            query |= Q(status=status.upper())
+        
+        if query:
+            issues = Issue.objects.filter(query)
+        else:
+            issues = Issue.objects.all()
+        
         serializer = IssueSerializer(issues, many=True)
         return Response(serializer.data)
 
@@ -39,6 +56,7 @@ class IssuesAPIView(APIView):
 
     def post(self, request: Request):
         serializer = IssueSerializer(data=request.data)
+        
 
         if serializer.is_valid():
             serializer.save()
