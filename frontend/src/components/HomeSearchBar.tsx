@@ -34,9 +34,8 @@ function HomeSearchBar() {
     if (statusValue) query += `&status=${statusValue}`;
     
     const queryString = new URLSearchParams(query).toString();
-    // redirect(`/?${queryString}`);
-    router.replace(`/?${query}`);
-    // router.refresh();
+    router.push(`/?${query}`);
+    router.refresh();
   }
 
   

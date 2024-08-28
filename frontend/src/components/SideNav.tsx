@@ -7,17 +7,20 @@ import {
   Siren,
   FileChartPie,
   LogIn,
+  LogOut,
 } from "lucide-react";
 import Icon_Logo from "../../public/Icon_Logo.svg";
 
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-
+import { useSession } from "next-auth/react";
+import { signOut } from "next-auth/react";
 
 function SideNav() {
+  const { data: session } = useSession();
   const pathname = usePathname();
-  console.log(pathname);
+  // console.log(pathname);
 
   const activeClassNames =
     "w-full flex flex-col text-center items-center justify-center h-[60px]\
@@ -26,14 +29,6 @@ function SideNav() {
     "w-full flex flex-col text-center items-center justify-center h-[60px]\
     text-xs text-slate-500 hover:bg-indigo-50 rounded-[15px] hover:shadow";
 
-  const links = [
-    { href: "/", label: "Home" },
-    { href: "/logs", label: "Logs" },
-    { href: "/insights", label: "Insights" },
-    { href: "/alerts", label: "Alerts" },
-    { href: "/about", label: "About" },
-    { href: "/profile", label: "Profile" },
-  ];
 
   return (
     <nav className="flex flex-col h-full justify-between">
@@ -56,7 +51,9 @@ function SideNav() {
 
         <Link
           href="/logs"
-          className={pathname === "/logs" ? activeClassNames : inactiveClassNames}
+          className={
+            pathname === "/logs" ? activeClassNames : inactiveClassNames
+          }
         >
           <NotebookPen className="stroke-slate-500 stroke-1 " />
           <span>Logs</span>
@@ -64,7 +61,9 @@ function SideNav() {
 
         <Link
           href="/insights"
-          className={pathname === "/insights" ? activeClassNames : inactiveClassNames}
+          className={
+            pathname === "/insights" ? activeClassNames : inactiveClassNames
+          }
         >
           <FileChartPie className="stroke-slate-500 stroke-1 " />
           <span>Insights</span>
@@ -72,7 +71,9 @@ function SideNav() {
 
         <Link
           href="/alerts"
-          className={pathname === "/alerts" ? activeClassNames : inactiveClassNames}
+          className={
+            pathname === "/alerts" ? activeClassNames : inactiveClassNames
+          }
         >
           <Siren className="stroke-slate-500 stroke-1 " />
 
@@ -81,7 +82,9 @@ function SideNav() {
 
         <Link
           href="/about"
-          className={pathname === "/about" ? activeClassNames : inactiveClassNames}
+          className={
+            pathname === "/about" ? activeClassNames : inactiveClassNames
+          }
         >
           <Info className="stroke-slate-500 stroke-1 " />
 
@@ -92,26 +95,53 @@ function SideNav() {
       {/* Nav Footer */}
       <div className="pt-2 pb-2 flex flex-col items-center justify-center space-y-1">
         <hr className="w-[90%] border-0 h-0.5 bg-slate-400 shadow" />
-        <Link
-          href="/profile"
-          className={pathname === "/profile" ? activeClassNames : inactiveClassNames}
-        >
-          <CircleUserRound className="stroke-slate-500 stroke-1 " />
+        {session && session.user && (
+          <Link
+            href="/profile"
+            className={
+              pathname === "/profile" ? activeClassNames : inactiveClassNames
+            }
+          >
+            <CircleUserRound className="stroke-slate-500 stroke-1 " />
 
-          <span>Profile</span>
-        </Link>
+            <span>Profile</span>
+          </Link>
+        )}
 
-        <Link
-          href="/logout"
-          className="w-full flex flex-col text-center items-center justify-center h-[50px]
-                     text-xs text-slate-500 hover:bg-indigo-50 rounded-[15px] hover:shadow"
-        >
-          <LogIn className="stroke-slate-500 stroke-1 " />
-          <span>Logout</span>
-        </Link>
+        <LoginLogoutButton session={session} />
       </div>
     </nav>
   );
 }
 
 export default SideNav;
+
+function LoginLogoutButton({ session }: { session: any }) {
+  if (session && session.user) {
+    return (
+      <Link
+        href="/logout"
+        className="w-full flex flex-col text-center items-center justify-center h-[50px]
+                     text-xs text-slate-500 hover:bg-indigo-50 rounded-[15px] hover:shadow"
+        onClick={async (e) => {
+          e.preventDefault();
+          await signOut({ redirect: false });
+        }}
+      >
+        <LogOut className="stroke-slate-500 stroke-1 " />
+        <span>Logout</span>
+      </Link>
+    );
+  }
+
+  return (
+    <Link
+      href="/auth/login"
+      className="w-full flex flex-col text-center items-center justify-center h-[50px]
+                     text-xs text-slate-500 hover:bg-indigo-50 rounded-[15px] hover:shadow"
+    >
+      <LogIn className="stroke-slate-500 stroke-1 " />
+      <span>Login</span>
+    </Link>
+  );
+}

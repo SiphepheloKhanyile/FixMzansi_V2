@@ -4,6 +4,7 @@ import "./globals.css";
 import SideNav from "@/components/SideNav";
 
 import { cn } from "@/lib/utils";
+import Providers from "@/components/Providers";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -17,11 +18,14 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  session,
 }: Readonly<{
   children: React.ReactNode;
+  session: any;
 }>) {
   return (
     <html lang="en">
+      <Providers session={session}>
       <body
         className={cn(
           "min-h-screen bg-background font-sans antialiased",
@@ -42,6 +46,7 @@ export default function RootLayout({
           </div>
         </div>
       </body>
+      </Providers>
     </html>
   );
 }

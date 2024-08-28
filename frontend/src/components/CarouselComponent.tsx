@@ -35,7 +35,7 @@ function CarouselComponent({ issue_id }: { issue_id: number }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.log("media", mediaData);
+  // console.log("media", mediaData);
 
   return (
     <div className="w-full">

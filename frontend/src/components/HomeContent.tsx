@@ -78,7 +78,7 @@ function HomeContent() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);
 
-  console.log("issue", issues);
+  // console.log("issue", issues);
 
   return (
     <div className="p-1 bg-range-50 flex flex-wrap space-x-">
