@@ -31,9 +31,9 @@ class IssuesListUnsecuredAPIView(APIView):
         if state_name:
             query |= Q(state_name=state_name)
         if category:
-            query |= Q(category=category.upper())
+            query |= Q(category=category)
         if status:
-            query |= Q(status=status.upper())
+            query |= Q(status=status)
         
         if query:
             issues = Issue.objects.filter(query)
@@ -135,6 +135,19 @@ class MediaContentListUnsecuredAPIView(APIView):
     URL: GET /mediacontent/
     """
     def get(self, request: Request, pk=None):
+        issue_id = request.query_params.get('issue')
+        issue_image_id = request.query_params.get('issue_image_id')
+        
+        if issue_id:
+            mediacontents = MediaContent.objects.filter(issue_id=issue_id)
+            serializer = MediaContentSerializer(mediacontents, many=True)
+            return Response(serializer.data)
+        
+        if issue_image_id:
+            mediacontent = MediaContent.objects.filter(issue=issue_image_id).first()
+            serializer = MediaContentSerializer(mediacontent)
+            return Response(serializer.data)
+        
         if pk:
             mediacontent = MediaContent.objects.get(pk=pk)
             serializer = MediaContentSerializer(mediacontent)

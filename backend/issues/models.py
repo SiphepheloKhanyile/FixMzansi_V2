@@ -21,6 +21,7 @@ class Issue(models.Model):
         ('P', 'Pending'),
         ('R', 'Resolved'),
         ('D', 'Duplicate'),
+        ('I', 'In Progress'),
     ]
 
     title = models.CharField(max_length=255)
@@ -93,7 +94,6 @@ class Downvote(models.Model):
         return f"{self.voted_by.username}'s downvote on {self.issue.title}"
 
 
-
 class MediaContent(models.Model):
     """
     Issue Media Content Model
@@ -105,4 +105,3 @@ class MediaContent(models.Model):
 
     def __str__(self):
         return f"Media for {self.issue.title} uploaded at {self.uploaded_at}"
-
