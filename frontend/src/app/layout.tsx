@@ -25,29 +25,28 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <Providers session={session}>
       <body
         className={cn(
           "min-h-screen bg-background font-sans antialiased",
           fontSans.variable
         )}
       >
-        <div style={{ display: "flex", minHeight: "100vh" }}>
-          <div
-            style={{ flex: "5%" }}
-            className="bg-slate-100 border border-slate-200 shadow-inner
+        <Providers session={session}>
+          <div style={{ display: "flex", minHeight: "100vh" }}>
+            <div
+              style={{ flex: "5%" }}
+              className="bg-slate-100 border border-slate-200 shadow-inner
                       shadow-slate-300 rounded-tr-lg rounded-br-lg h-screen"
-          >
-            <SideNav />
-          </div>
+            >
+              <SideNav />
+            </div>
 
-          <div style={{ flex: "95%" }} className="h-screen m-0 p-0">
-            {children}
+            <div style={{ flex: "95%" }} className="h-screen m-0 p-0">
+              {children}
+            </div>
           </div>
-        </div>
+        </Providers>
       </body>
-      </Providers>
     </html>
   );
 }
-

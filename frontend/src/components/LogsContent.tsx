@@ -1,7 +1,14 @@
 "use client";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { MapPinned, CalendarArrowUp, FileChartPie, ArrowBigUp, MessageCircleMore } from "lucide-react";
+import { useSession } from "next-auth/react";
+import {
+  MapPinned,
+  CalendarArrowUp,
+  FileChartPie,
+  ArrowBigUp,
+  MessageCircleMore,
+} from "lucide-react";
 
 import {
   Card,
@@ -42,46 +49,30 @@ type IssuesData = {
   updated_at: string;
 };
 
-function HomeContent() {
+function LogsContent() {
+  const { data: session } = useSession();
   const searchParams = useSearchParams();
-  const state = searchParams.get("state");
-  const category = searchParams.get("category");
-  const status = searchParams.get("status");
-
   const [issues, setIssues] = useState<IssuesData[]>([]);
 
   useEffect(() => {
     async function fetchIssues() {
-      if (state || category || status) {
-        let query = "";
-        if (state) query += `state=${state}`;
-        if (category) query += `&category=${category}`;
-        if (status) query += `&status=${status}`;
+      const response = await fetch(`http://localhost:8000/issues/${session?.user.id}`, {
+        cache: "no-cache",
+      });
 
-        const response = await fetch(`http://localhost:8000/issues/?${query}`, {
-          cache: "no-cache",
-        });
-        const data: IssuesData[] = await response.json();
-        setIssues(data);
-      } else {
-        const response = await fetch("http://localhost:8000/issues/", {
-          cache: "no-cache",
-        });
-
-        const data: IssuesData[] = await response.json();
+      if (response.ok) {
+        const data = await response.json();
         setIssues(data);
       }
+
     }
 
     fetchIssues();
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchParams]);
-
-  // console.log("issue", issues);
+  }, [session]);
 
   return (
-    <div className="p-1 bg-range-50 flex flex-wrap space-x-">
+    <div className="p-1 bg-range-50 flex flex-wrap space-x- bg-oange-100">
       {issues.map((issue) => (
         <div key={issue.id} className="w-[350px] b-blue-400 mt-2 ml-5 ">
           <CarouselComponent issue_id={issue.id} />
@@ -93,6 +84,7 @@ function HomeContent() {
                 {issue.description.split(" ").slice(0, 10).join(" ") +
                   "...(view more)"}
               </CardDescription>
+              
             </CardHeader>
 
             <hr className="w-[95%] ml-2 h-[2px]" />
@@ -128,7 +120,7 @@ function HomeContent() {
                 
                 <div className="flex items-center">
                   <Button className="bg-idigo-800 ext-white flex space-x-1" size={"sm"} variant={"outline"}>
-                    <MessageCircleMore  className="stroke-slate-500 stroke-1"/>
+                    <MessageCircleMore  className="stroke-slate-500 stroke-1 "/>
                     <span>Comment</span>
                   </Button>
                 </div>
@@ -146,4 +138,4 @@ function HomeContent() {
   );
 }
 
-export default HomeContent;
+export default LogsContent;

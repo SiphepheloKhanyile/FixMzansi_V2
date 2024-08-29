@@ -7,7 +7,7 @@ from .views import DownvotesListUnsecuredAPIView, DownvotesListAPIView
 
 urlpatterns = [
     path("", IssuesListUnsecuredAPIView.as_view()),
-    path("<int:pk>/", IssuesListUnsecuredAPIView.as_view()),
+    path("<int:user_id>/", IssuesListUnsecuredAPIView.as_view()),
     path("add/", IssuesAPIView.as_view()),
     path("add/<int:id>/", IssuesAPIView.as_view()),
     

@@ -10,20 +10,21 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication, SessionAuthentication
 
 from django.db.models import Q
+from rest_framework.parsers import MultiPartParser, FormParser
 
 class IssuesListUnsecuredAPIView(APIView):
     """
     All Issues APIView
     URL: GET /issues/
     """
-    def get(self, request: Request, pk=None):
+    def get(self, request: Request, user_id=None):
         state_name = request.query_params.get('state')
         category = request.query_params.get('category')
         status = request.query_params.get('status')
         
-        if pk:
-            issue = Issue.objects.get(pk=pk)
-            serializer = IssueSerializer(issue)
+        if user_id:
+            issue = Issue.objects.filter(posted_by=user_id)
+            serializer = IssueSerializer(issue, many=True)
             return Response(serializer.data)
         
         query = Q()
@@ -47,7 +48,7 @@ class IssuesListUnsecuredAPIView(APIView):
 class IssuesAPIView(APIView):
     """
     All Issues APIView
-    URL: POST /issues/
+    URL: POST /issues/add/
     URL: PUT /issues/
     URL: DELETE /issues/<int:id>/
     """
@@ -167,14 +168,20 @@ class MediaContentAPIView(APIView):
     """
     authentication_classes = [TokenAuthentication, SessionAuthentication]
     permission_classes = [IsAuthenticated]
+    # parser_classes = [MultiPartParser, FormParser]
 
     def post(self, request: Request):
         files = request.FILES.getlist('files')
         issue_id = request.data.get('issue')
         media_contents = []
+        
+        try:
+            issue = Issue.objects.get(id=issue_id)
+        except Issue.DoesNotExist:
+            return Response({"error": "Issue not found"}, status=status.HTTP_404_NOT_FOUND)
 
         for file in files:
-            media_content = MediaContent(file=file, issue_id=issue_id)
+            media_content = MediaContent(issue=issue, file=file)
             media_contents.append(media_content)
 
         MediaContent.objects.bulk_create(media_contents)
