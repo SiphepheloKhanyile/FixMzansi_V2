@@ -163,7 +163,7 @@ function NewIssueButton() {
       }
 
       // alert("Issue and media submitted successfully!");
-      router.refresh();
+      router.push('/logs');
     } catch (error) {
       console.error(error);
       alert("An error occurred while submitting the issue and media.");
