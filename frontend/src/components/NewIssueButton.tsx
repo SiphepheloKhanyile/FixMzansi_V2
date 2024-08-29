@@ -28,6 +28,7 @@ import { Button } from "./ui/button";
 import { FilePlus2, X } from "lucide-react";
 import { useState } from "react";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 type IssuePost = {
   title: string;
@@ -80,6 +81,7 @@ function NewIssueButton() {
   const [category, setCategory] = useState("");
   const [media, setMedia] = useState<File[]>([]);
   const { data: session } = useSession();
+  const router = useRouter();
 
   const setLocationDetails = (details: {
     streetName: string;
@@ -160,7 +162,8 @@ function NewIssueButton() {
         throw new Error("Failed to submit media");
       }
 
-      alert("Issue and media submitted successfully!");
+      // alert("Issue and media submitted successfully!");
+      router.refresh();
     } catch (error) {
       console.error(error);
       alert("An error occurred while submitting the issue and media.");
