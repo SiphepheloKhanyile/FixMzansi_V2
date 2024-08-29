@@ -75,7 +75,7 @@ class UserRegisterAPIView(APIView):
 
             response = {
                 **user_serializer.data,
-                "name": user.name,
+                "name": user.username,
                 "accessToken": token.key
             }
             return Response(response, status=status.HTTP_200_OK)
@@ -106,7 +106,7 @@ class UserLoginAPIView(APIView):
                     user_serializer = CustomUserSerializer(user)
                     response = {
                         **user_serializer.data,
-                        "name": user.name,
+                        "name": user.username,
                         "accessToken": token.key
                     }
                     return Response(response, status=status.HTTP_200_OK)
