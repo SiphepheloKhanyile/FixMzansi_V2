@@ -27,7 +27,7 @@ const handler: NextAuthOptions = NextAuth({
               })
               const user = await res.json()
 
-              console.log("user", user)
+              // console.log("user", user)
 
                       
               // If no error and we have user data, return it
