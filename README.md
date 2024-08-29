@@ -24,9 +24,24 @@ FixMzansi_V2 is a web application designed to help users report and track variou
 
 ## Installation
 
+
 ### Frontend
 
-1. Navigate to the [`frontend`](command: "/frontend") directory:
+1. Navigate to the [`frontend`]("/frontend") directory:
+    ```sh
+    cd frontend
+    ```
+
+2. Create a new file named `.env` in the root of the frontend directory.
+
+3. Open the `.env` file and add the following content:
+    ```sh
+    NEXTAUTH_SECRET=YOUR_NEXTAUTH_SECRET
+    NEXTAUTH_URL=YOUR_NEXTAUTH_URL
+
+### Frontend
+
+1. Navigate to the [`frontend`]("/frontend") directory:
     ```sh
     cd frontend
     ```
@@ -34,6 +49,14 @@ FixMzansi_V2 is a web application designed to help users report and track variou
 2. Install the dependencies:
     ```sh
     npm install
+    ```
+
+3. Create a new file named `.env` in the root of the frontend directory.
+
+4. Open the `.env` file and add the following content:
+    ```sh
+    NEXTAUTH_SECRET=YOUR_NEXTAUTH_SECRET
+    NEXTAUTH_URL=YOUR_NEXTAUTH_URL
     ```
 
 ### Backend
@@ -63,7 +86,14 @@ FixMzansi_V2 is a web application designed to help users report and track variou
     pip install -r requirements.txt
     ```
 
-5. Apply the migrations:
+5. Create a new file named `.env` in the root of the backend directory.
+
+6. Open the `.env` file and add the following content:
+    ```sh
+    SECRET_KEY=YOUR_SECRET
+    ```
+
+7. Apply the migrations:
     ```sh
     python manage.py migrate
     ```
