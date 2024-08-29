@@ -2,6 +2,7 @@
 import React from "react";
 import Image from "next/image";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 type errorsResponse = {
   username?: string[];
@@ -31,6 +32,9 @@ function Register() {
   const [error, setError] = useState<errorsResponse>({});
   const [usernameError, setUsernameError] = useState<UsernameError>();
 
+
+  const router = useRouter();
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -59,7 +63,13 @@ function Register() {
       return;
     }
 
-    const data = await response.json();
+    if (response.status === 201) {
+      const data = await response.json();
+      // console.log(data);
+      router.push("/auth/login");
+    }
+
+    // const data = await response.json();
     // console.log(data);
   };
 
