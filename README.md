@@ -2,6 +2,9 @@
 
 FixMzansi_V2 is a web application designed to help users report and track various issues within their community. The application consists of a frontend built with Next.js and a backend built with Django.
 
+## Screenshot
+![FixMzansi Screenshot](./FixMzansi.png)
+
 ## Table of Contents
 
 - [FixMzansi_V2](#fixmzansi_v2)
@@ -17,50 +20,6 @@ FixMzansi_V2 is a web application designed to help users report and track variou
     - [Authentication](#authentication)
     - [Endpoints](#endpoints)
   - [License](#license)
-
-## Project Structure
-FixMzansi_V2/
-├── backend/
-│   ├── .env
-│   ├── .gitignore
-│   ├── Api/
-│   │   ├── init.py
-│   │   ├── asgi.py
-│   │   ├── settings.py
-│   │   ├── urls.py
-│   │   └── wsgi.py
-│   ├── Auth/
-│   │   ├── init.py
-│   │   ├── admin.py
-│   │   ├── apps.py
-│   │   ├── migrations/
-│   │   ├── models.py
-│   │   └── ...
-│   ├── db.sqlite3
-│   ├── issues/
-│   ├── manage.py
-│   ├── media/
-│   ├── PublicAlerts/
-│   ├── Readme.md
-│   ├── requirements.txt
-│   └── users/
-├── frontend/
-│   ├── .env
-│   ├── .eslintrc.json
-│   ├── .gitignore
-│   ├── .next/
-│   ├── components.json
-│   ├── next-env.d.ts
-│   ├── next.config.mjs
-│   ├── package.json
-│   ├── postcss.config.mjs
-│   ├── public/
-│   ├── src/
-│   ├── tailwind.config.ts
-│   ├── tsconfig.json
-│   └── types/
-├── LICENSE
-└── README.md
 
 
 ## Installation
@@ -205,5 +164,4 @@ To access the API endpoints, you need to include an [`Authorization`]() header i
 
 ## License
 
-This project is licensed under the MIT License. See the [`LICENSE`](command:_github.copilot.openRelativePath?%5B%7B%22scheme%22%3A%22file%22%2C%22authority%22%3A%22%22%2C%22path%22%3A%22%2Fworkspace%2FFixMzansi_V2%2FLICENSE%22%2C%22query%22%3A%22%22%2C%22fragment%22%3A%22%22%7D%5D "/workspace/FixMzansi_V2/LICENSE") file for more details.
-
+This project is licensed under the MIT License. See the [`LICENSE`]("/LICENSE") file for more details.
