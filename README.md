@@ -24,21 +24,6 @@ FixMzansi_V2 is a web application designed to help users report and track variou
 
 ## Installation
 
-
-### Frontend
-
-1. Navigate to the [`frontend`]("/frontend") directory:
-    ```sh
-    cd frontend
-    ```
-
-2. Create a new file named `.env` in the root of the frontend directory.
-
-3. Open the `.env` file and add the following content:
-    ```sh
-    NEXTAUTH_SECRET=YOUR_NEXTAUTH_SECRET
-    NEXTAUTH_URL=YOUR_NEXTAUTH_URL
-
 ### Frontend
 
 1. Navigate to the [`frontend`]("/frontend") directory:
