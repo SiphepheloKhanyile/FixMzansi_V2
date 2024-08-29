@@ -2,7 +2,7 @@
 This file contains all the APIViews for the Auth app.
 """
 from .serializers import UserLoginSerializer, UserRegisterSerializer, CustomUserSerializer
-from .serializers import  UserUpdateSerializer, UserUpdatePasswordSerializer
+from .serializers import UserUpdateSerializer, UserUpdatePasswordSerializer
 from users.models import CustomUser
 
 from rest_framework import status
@@ -75,6 +75,7 @@ class UserRegisterAPIView(APIView):
 
             response = {
                 **user_serializer.data,
+                "name": user.name,
                 "accessToken": token.key
             }
             return Response(response, status=status.HTTP_200_OK)
@@ -105,6 +106,7 @@ class UserLoginAPIView(APIView):
                     user_serializer = CustomUserSerializer(user)
                     response = {
                         **user_serializer.data,
+                        "name": user.name,
                         "accessToken": token.key
                     }
                     return Response(response, status=status.HTTP_200_OK)
@@ -137,7 +139,7 @@ class UserUpdatePasswordAPIView(APIView):
     """
     authentication_classes = [TokenAuthentication, SessionAuthentication]
     permission_classes = [IsAuthenticated]
-    
+
     def post(self, request: Request, *args, **kwargs):
         serializer = UserUpdatePasswordSerializer(data=request.data)
         if serializer.is_valid():
