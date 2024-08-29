@@ -63,7 +63,7 @@ function Register() {
       return;
     }
 
-    if (response.status === 201) {
+    if (response.status === 200) {
       const data = await response.json();
       // console.log(data);
       router.push("/auth/login");
